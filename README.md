@@ -19,7 +19,6 @@
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
 - [FSM Controller](#-fsm-controller)
 - [Module Breakdown](#-module-breakdown)
 - [Exit & Billing Flow](#-exit--billing-flow)
