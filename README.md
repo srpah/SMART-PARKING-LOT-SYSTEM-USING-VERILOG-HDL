@@ -59,55 +59,6 @@ The design is cleanly partitioned into a **control path** (FSM) and a **datapath
 | 🧭 **Clean FSM control** | 6-state controller with registered state and combinational outputs |
 | 🔁 **Edge-detected inputs** | Sensors are converted to single-cycle pulses, so held signals can't double-trigger |
 
----
-
-## 🏗️ System Architecture
-
-```mermaid
-flowchart LR
-    subgraph INPUTS
-        A[entry_pulse]
-        B[exit_pulse_for_system]
-        C[payment_received]
-        D[exit_car_select]
-    end
-
-    subgraph TOP["top_parking_system_4slot"]
-        F["fsm_parking<br/>(Control Path)"]
-        S["slot_manager_4slot<br/>(Occupancy + Allocation)"]
-        T["time_billing_4slot<br/>(Timers + Fee)"]
-        R["1-cycle register<br/>exit_event_for_billing"]
-    end
-
-    subgraph OUTPUTS
-        O1[entry_gate]
-        O2[exit_gate]
-        O3[full_led]
-        O4[fee_ready]
-        O5["occupancy[3:0]"]
-        O6["free_count[2:0]"]
-        O7["e0..e3 / fee[31:0]"]
-    end
-
-    A --> F
-    B --> F
-    C --> F
-    C --> R
-    D --> S
-
-    F -- "alloc_req / free_req" --> S
-    S -- "slot_available / occupancy" --> F
-    S -- "occupancy / exit_slot" --> T
-    R -- "exit_pulse" --> T
-
-    F --> O1
-    F --> O2
-    F --> O3
-    F --> O4
-    S --> O5
-    S --> O6
-    T --> O7
-```
 
 ---
 
@@ -118,20 +69,6 @@ The controller is a **6-state FSM** that serializes entry and exit transactions.
 
 > [FSM Architecture](fsm.png) 
 
-```mermaid
-stateDiagram-v2
-    [*] --> S_IDLE
-
-    S_IDLE --> S_ALLOC: entry_pulse && slot_available
-    S_IDLE --> S_EXIT_REQUEST: exit_pulse_in && occupancy != 0
-
-    S_ALLOC --> S_GATEOPEN: always
-    S_GATEOPEN --> S_IDLE: always
-
-    S_EXIT_REQUEST --> S_WAIT_PAYMENT: always
-    S_WAIT_PAYMENT --> S_EXITOPEN: payment_received
-    S_EXITOPEN --> S_IDLE: always
-```
 
 | State | Outputs Asserted | Purpose |
 |---|---|---|
