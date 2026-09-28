@@ -8,7 +8,6 @@
 ![Simulation](https://img.shields.io/badge/Simulated%20with-Icarus%20Verilog-orange?style=for-the-badge)
 ![Waveforms](https://img.shields.io/badge/Waveforms-GTKWave-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Verified%20in%20Simulation-brightgreen?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)
 
 *An FSM-driven RTL design that allocates slots, tracks per-vehicle parking time, calculates fees, and only opens the exit gate once payment is received.*
 
