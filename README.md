@@ -26,8 +26,6 @@
 - [Getting Started](#-getting-started)
 - [Verification Suite](#-verification-suite)
 - [Design Decisions](#-design-decisions)
-- [Known Limitations & Roadmap](#-known-limitations--roadmap)
-- [Author](#-author)
 
 ---
 
